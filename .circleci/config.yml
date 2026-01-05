@@ -1,20 +1,25 @@
 version: 2.1
 
 jobs:
-  build:
+  test:
     docker:
-      - image: python:3.8
+      - image: cimg/python:3.11  # CircleCI official Python image
+    working_directory: ~/repo
     steps:
-      - checkout
+      - checkout  # clone your repo
       - run:
           name: Install dependencies
-          command: pip install -r requirements.txt
+          command: |
+            python -m pip install --upgrade pip
+            pip install -r requirements.txt
+            pip install pytest
       - run:
           name: Run tests
-          command: pytest tests/
+          command: |
+            pytest tests --maxfail=1 --disable-warnings -q
 
 workflows:
   version: 2
-  build:
+  test_workflow:
     jobs:
-      - build
+      - test

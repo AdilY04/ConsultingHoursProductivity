@@ -2,18 +2,6 @@
 
 ## Academic Research Project | DAT5501
 
-**Author:** Adil Yaseen (240282613)  
-**Institution:** Queen Mary University of London  
-**Module:** DAT5501 - Data Analysis and Statistics
-
----
-
-## Executive Summary
-
-This repository contains a comprehensive statistical analysis investigating the relationship between working hours and productivity in the UK management consulting sector. Using quarterly productivity data spanning 1998-2025 (109 observations), the analysis employs multiple regression techniques, correlation analyses, and hypothesis testing to examine whether extended working hours translate into enhanced hourly productivity.
-
-**Key Finding:** While hours worked strongly predicts gross value added (R² = 0.88), hours worked explains merely 6% of variance in hourly productivity, challenging the consulting industry's long-hours culture and suggesting that extended hours represent pseudo-productivity through visible commitment signaling rather than genuine value creation.
-
 ---
 
 ## Research Objectives
@@ -31,21 +19,18 @@ The research seeks to determine whether extended working hours genuinely transla
 
 ### Primary Datasets
 
-**1. ONS Productivity Estimates**
+**1. ONS Productivity Estimates** (`master_productivityds.xlsx`)
 - Source: "Output per hour worked by division, UK"
 - Classification: Standard Industrial Classification 2007
 - Variables: Gross Value Added (GVA), Hours Worked, Hourly Output
-- Frequency: Quarterly
 - Period: 1998 Q1 - 2025 Q2 (109 observations)
 - Format: Multi-sheet Excel file with division-level metrics
 
-**2. Revenue Data**
+**2. Revenue Data** (`total_revenue.csv`)
 - Source: Office for National Statistics
 - Classification: GBServTO: 70.2 (Management Consulting Services)
 - Period: 1998 Q1 - 2025 Q2
 - Format: Quarterly total revenue figures
-
-All productivity variables utilize aggregate index values rebased to 2025, enabling analysis of real productivity dynamics independent of nominal monetary variation and macroeconomic volatility.
 
 ---
 
@@ -56,14 +41,16 @@ All productivity variables utilize aggregate index values rebased to 2025, enabl
 **Tools:** Python (pandas, numpy)
 
 #### Data Extraction
-- Revenue dataset processed to remove metadata rows and standardize column naming conventions
+- Revenue dataset processed to remove metadata rows and standardise column naming conventions
 - Productivity tables extracted from multi-sheet Excel source files
-- Management consulting observations isolated from broader industry classifications
 
 #### Data Transformation
 - Custom reindexing function developed to convert base year from 2023 to 2025
 - Scaling factors calculated between reference periods to ensure temporal consistency
 - Quarterly identifiers used to merge cleaned datasets into unified analytical dataset
+
+<img width="1710" height="1112" alt="Screenshot 2026-01-09 at 19 54 49" src="https://github.com/user-attachments/assets/767ff6db-c23e-4fdf-84e3-4ebd0a1c254e" />
+_Screenshot of data cleaning work in VScode_
 
 **Implementation Files:**
 - `cleaning_and_merging/cleaning_masterproductivityds.ipynb`
@@ -79,12 +66,12 @@ All productivity variables utilize aggregate index values rebased to 2025, enabl
 **Tools:** Python (pandas, matplotlib, seaborn)
 
 #### Temporal Pattern Analysis
-Initial visualization examined variable movements over quarterly timeframe, revealing:
+Initial visualisation examined variable movements over quarterly timeframe, revealing:
 - Hours worked and gross value added exhibited parallel movement patterns
 - Hours worked and hourly output demonstrated no such coordinated movement
 
 #### Hierarchical Clustering Analysis
-- Dendrogram construction and color-coded heatmap visualization
+Dendrogram construction and color-coded heatmap:
 - Revealed GVA and hours worked cluster closely together with similar quarterly patterns
 - Hourly output appeared separated from these variables, suggesting weaker underlying relationships
 
@@ -93,13 +80,14 @@ Correlation heatmap generation confirmed initial observations:
 - Strong positive correlation between GVA and hours worked (r = 0.94)
 - Modest correlation between hourly output and hours worked (r = 0.25)
 
+<img width="515" height="435" alt="image" src="https://github.com/user-attachments/assets/d9e53528-9d58-4048-a7c4-4da85c8eb131" />
+_Correlation heatmap quantifying pairwise relationships between variables_
+
 #### Normality Testing
 Statistical assumptions verified for all variables prior to parametric analysis, addressing methodological requirements for robust correlation analysis (Onwuegbuzie & Daniel, 1999).
 
 **Implementation Files:**
 - `eda_and_analysis_ipynbF/brief_eda.ipynb`
-
-**Visualizations:** Temporal trend plots, hierarchical clustering heatmaps, correlation matrices, distribution plots
 
 ---
 
@@ -119,6 +107,9 @@ Statistical assumptions verified for all variables prior to parametric analysis,
 - **Validation:** Bayesian Information Criterion testing (ΔBIC = -228.49) strongly favored linear model over null model
 - **Interpretation:** Confirms arithmetical truism that aggregate labor input generates aggregate output
 
+<img width="800" height="600" alt="newplotq" src="https://github.com/user-attachments/assets/cacead74-53ec-44a1-b889-749f40b5432d" />
+_Scatter plot showing the strong positive linear relationship between hours worked and gross added value in UK management consulting (2025 = 100)_
+
 **Model 2: Hours Worked vs. Hourly Output (Primary Analysis)**
 - **Purpose:** Address core research question regarding productivity per hour
 - **Method:** Linear regression with multiple validation techniques
@@ -127,6 +118,9 @@ Statistical assumptions verified for all variables prior to parametric analysis,
   - Pearson correlation: 0.250 (p = 0.008)
   - R² = 0.06 (hours worked explains only 6% of hourly productivity variance)
 - **Interpretation:** Despite statistical significance, relationship proves markedly weak
+
+<img width="800" height="600" alt="newplot" src="https://github.com/user-attachments/assets/275ce99b-925d-415f-ad42-190d08fa9b65" />
+_Scatter plot illustrating the weak relationship between hourly output and hours worked in UK management consulting (2025 = 100)_
 
 #### Non-Parametric Validation
 To avoid linearity assumptions and ensure robustness:
@@ -143,8 +137,6 @@ Categorical validation using quantile-binned data:
 **Implementation Files:**
 - `eda_and_analysis_ipynbF/main.ipynb`
 
-**Visualizations:** Scatter plots with regression lines, confidence intervals, residual plots
-
 ---
 
 ### 4. Continuous Integration and Testing
@@ -155,7 +147,7 @@ Categorical validation using quantile-binned data:
 - **EDA Test Suite:** `tests/test_suite_eda.py`
   - Validates data loading procedures
   - Verifies exploratory analysis outputs
-  - Ensures visualization generation integrity
+  - Ensures visualisation generation integrity
 
 - **Main Analysis Test Suite:** `tests/test_suite_main.py`
   - Validates regression model computations
@@ -184,39 +176,11 @@ Categorical validation using quantile-binned data:
    - Validated through multiple statistical methods (Pearson, Spearman, Kendall, chi-square)
    - Scatter pattern shows highest performers distributed across varying hour ranges rather than clustering at maximum hours
 
-### Statistical Validation
-
-Multiple analytical approaches employed to ensure robustness:
-- Parametric (OLS regression, Pearson correlation)
-- Non-parametric (Spearman, Kendall correlations)
-- Categorical (chi-square testing)
-- Model comparison (Bayesian Information Criterion)
-
-All methods converged on consistent conclusion supporting null hypothesis.
-
 ---
 
 ## Conclusions
 
-The analysis provides compelling evidence supporting the null hypothesis: **working more hours does not significantly increase the hourly productivity of management consultants**. The critical finding emerges from examining hourly productivity, where hours worked explains only 6% of variance despite achieving statistical significance.
-
-### Implications
-
-**For Consulting Firms:**
-- Extended hours represent pseudo-productivity through visible commitment signaling rather than genuine value creation
-- Long-hours culture perpetuates harmful practices without commensurate productivity benefit
-- Sustainable work patterns may prove equally effective as marathon sessions
-
-**Practical Recommendations:**
-- Implement daily hour caps to protect against chronic overwork
-- Establish peer mentorship systems for wellbeing monitoring
-- Recalibrate performance evaluation from presenteeism toward outcome quality
-- Redistribute hours across sustainable timeframes without productivity loss
-
-**Strategic Implications:**
-- Employer brand perception damaged by unsustainable workplace conditions
-- Early-career professionals increasingly prioritize work-life integration
-- Firms demonstrating balanced approaches gain competitive advantage in talent acquisition
+The analysis provides compelling evidence supporting the null hypothesis: **working more hours does not significantly increase the hourly productivity of management consultants**. The result emerges from examining hourly productivity, where hours worked explains only 6% of variance despite achieving statistical significance.
 
 ---
 
@@ -296,50 +260,3 @@ pip install -r requirements.txt
    ```bash
    pytest tests/
    ```
-
----
-
-## Limitations and Future Work
-
-### Acknowledged Limitations
-- Aggregate quarterly data limits granularity of insights
-- Firm-specific and role-specific dynamics remain unexplored
-- Homoscedasticity requires formal statistical validation beyond visual inference
-- Stability verification via jackknife or bootstrap resampling recommended
-
-### Future Research Directions
-- Individual-level consultant data analysis
-- Firm-specific comparative studies
-- Role-based productivity variation examination
-- Longitudinal cohort analysis tracking consultant trajectories
-- Cross-industry productivity comparisons
-
----
-
-## References
-
-Johnston, J. (1963) 'The productivity of management consultants', *Journal of the Royal Statistical Society: Series A (General)*, 126(2), pp. 237–249.
-
-Lopes da Costa, R., Pereira, L., Dias, A. and Gonçalves, R. (2022) 'The culture play, a key role in management consulting firms', *International Journal of Productivity and Quality Management*, 35(3), pp. 308–331.
-
-Management Consultancies Association (2025) *The UK consulting industry*. Available at: https://www.mca.org.uk/value-of-consulting/the-consulting-industry (Accessed: 29 December 2025).
-
-Moineddin, R. and Urquia, M.L. (2014) 'Regression analysis of aggregate continuous data', *Epidemiology*, 25(6), pp. 929–930.
-
-Onwuegbuzie, A.J. and Daniel, L.G. (1999) 'Uses and misuses of the correlation coefficient', paper presented at the Annual Meeting of the Mid-South Educational Research Association, Point Clear, AL, 17–19 November.
-
----
-
-## License
-
-This project is submitted as academic coursework for DAT5501 at Queen Mary University of London.
-
----
-
-## Contact
-
-**Adil Yaseen**  
-Student ID: 240282613  
-Queen Mary University of London
-
-*For academic inquiries regarding this research, please refer to the institutional contact protocols.*

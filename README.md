@@ -50,6 +50,7 @@ The research seeks to determine whether extended working hours genuinely transla
 - Quarterly identifiers used to merge cleaned datasets into unified analytical dataset
 
 <img width="1710" height="1112" alt="Screenshot 2026-01-09 at 19 54 49" src="https://github.com/user-attachments/assets/767ff6db-c23e-4fdf-84e3-4ebd0a1c254e" />
+
 _Screenshot of data cleaning work in VScode_
 
 **Implementation Files:**
@@ -81,6 +82,7 @@ Correlation heatmap generation confirmed initial observations:
 - Modest correlation between hourly output and hours worked (r = 0.25)
 
 <img width="515" height="435" alt="image" src="https://github.com/user-attachments/assets/d9e53528-9d58-4048-a7c4-4da85c8eb131" />
+
 _Correlation heatmap quantifying pairwise relationships between variables_
 
 #### Normality Testing
@@ -108,6 +110,7 @@ Statistical assumptions verified for all variables prior to parametric analysis,
 - **Interpretation:** Confirms arithmetical truism that aggregate labor input generates aggregate output
 
 <img width="800" height="600" alt="newplotq" src="https://github.com/user-attachments/assets/cacead74-53ec-44a1-b889-749f40b5432d" />
+
 _Scatter plot showing the strong positive linear relationship between hours worked and gross added value in UK management consulting (2025 = 100)_
 
 **Model 2: Hours Worked vs. Hourly Output (Primary Analysis)**
@@ -120,6 +123,7 @@ _Scatter plot showing the strong positive linear relationship between hours work
 - **Interpretation:** Despite statistical significance, relationship proves markedly weak
 
 <img width="800" height="600" alt="newplot" src="https://github.com/user-attachments/assets/275ce99b-925d-415f-ad42-190d08fa9b65" />
+
 _Scatter plot illustrating the weak relationship between hourly output and hours worked in UK management consulting (2025 = 100)_
 
 #### Non-Parametric Validation
